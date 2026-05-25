@@ -1,0 +1,5 @@
+[server]
+# Disable Streamlit's module path watcher to prevent it from scanning
+# large packages (e.g. transformers) that have optional dependencies
+# like torchvision, which are not installed in this environment.
+fileWatcherType = "none"
