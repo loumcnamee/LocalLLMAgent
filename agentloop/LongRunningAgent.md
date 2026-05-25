@@ -874,3 +874,14 @@ if __name__ == "__main__":
 - **Move orchestration to LangGraph** once you like the behavior  
 
 If you tell me which part you want to harden first—JSON robustness, safety (no wild writes), or Git integration—I can zoom in and refine that slice into production-grade code.
+
+
+## References
+1. https://www.sitepoint.com/the-complete-stack-for-local-autonomous-agents--from-ggml-to-orchestration/
+2. https://insiderllm.com/guides/local-ai-agents-guide/
+3. https://docs.cloud.google.com/architecture/multi-agent-private-networking-patterns
+4. https://medium.com/google-cloud/using-the-loop-pattern-to-make-my-multi-agent-solution-more-robust-86f8e9159a2a
+5. https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
+6.  https://victordibia.com/blog/agent-execution-loop/
+7. https://levelup.gitconnected.com/building-an-ai-agent-from-scratch-no-magic-just-a-deterministic-loop-a916161705fb
+8. https://code.claude.com/docs/en/agent-sdk/agent-loop#the-loop-at-a-glance
