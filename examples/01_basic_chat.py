@@ -14,7 +14,8 @@ Run:
 import ollama
 
 
-MODEL = "llama3.2:3b"
+# MODEL = "llama3.2:3b"
+MODEL = "llama3.2:1b" # Smaller model for faster responses in demo
 
 
 def simple_chat(prompt: str) -> str:
