@@ -21,6 +21,7 @@ MAX_HISTORY_LENGTH = 100
 
 #llm = OllamaLLM(model="mistral")
 llm = OllamaLLM(model="llama3.2:1b")
+# llm = OllamaLLM(model="qwen3.6:latest")
 
 def add_numbers(a: float, b: float):
     return a + b
@@ -61,10 +62,22 @@ def execute_tool(action, action_input):
     tool_fn = tools[action]
     return tool_fn(**action_input)
 
-def agent_loop(goal):
+def agent_loop(goal, should_terminate=None):
+    """Run the agent loop.
+    
+    Args:
+        goal: The goal for the agent to achieve.
+        should_terminate: Optional callable that returns True if the loop should terminate.
+    """
     history = []
 
     while True:
+        # Check for termination signal
+        if should_terminate and should_terminate():
+            logger.info("Termination requested, exiting agent loop.")
+            yield {"type": "terminated", "message": "Agent loop terminated by user."}
+            break
+
         prompt = SYSTEM_PROMPT + TOOLS_SCHEMA + "\n" + \
                  f"Goal: {goal}\n" + \
                  f"History: {json.dumps(history)}\n"
