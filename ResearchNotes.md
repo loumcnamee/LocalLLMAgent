@@ -121,6 +121,7 @@ Here are the best options to integrate local LLMs into your development workflow
 * Custom API Proxying: Visual Studio lacks the vast open-source extension ecosystem of VS Code for local LLMs. Developers often use Continue.dev or Twinny in VS Code, or route Visual Studio traffic through a local proxy that mimics the OpenAI API schema. [24, 25, 26, 27] 
 
 ## Recommended Model Pairings
+
 For a smooth local coding experience, use models trained specifically for development:
 
 * Qwen2.5-Coder (7B or 14B): The current gold standard for local code generation and reasoning.
@@ -134,38 +135,191 @@ To help you get this running smoothly, please share a bit more about your develo
 * Which programming languages do you work with most frequently?
 * What are your computer's hardware specs (specifically RAM and GPU)?
 
-
 [1] [https://techcommunity.microsoft.com](https://techcommunity.microsoft.com/blog/educatordeveloperblog/visual-studio-code-ai-toolkit-run-llms-locally/4163192)
+
 [2] [https://docs.pieces.app](https://docs.pieces.app/products/extensions-plugins/visual-studio/copilot/llm-settings)
+
 [3] [https://ai.gopubby.com](https://ai.gopubby.com/serving-llms-using-lm-studio-1d31bb776a60)
+
 [4] [https://mehmetozkaya.medium.com](https://mehmetozkaya.medium.com/semantic-search-development-with-c-using-ollama-vectordb-orchestrate-in-net-aspire-d82eec73696a)
+
 [5] [https://blog.gopenai.com](https://blog.gopenai.com/building-a-local-llm-powered-c-agent-for-code-analysis-and-developer-assistance-596692583d7d)
+
 [6] [https://github.com](https://github.com/redhat-developer/vscode-paver)
+
 [7] [https://www.reddit.com](https://www.reddit.com/r/neovim/comments/1haxgd5/currently_most_active_ollama_based_completion/)
+
 [8] [https://thenewstack.io](https://thenewstack.io/how-to-integrate-vs-code-with-ollama-for-local-ai-assistance/)
+
 [9] [https://www.infoworld.com](https://www.infoworld.com/article/4144487/i-ran-qwen3-5-locally-instead-of-claude-code-heres-what-happened.html)
+
 [10] [https://huggingface.co](https://huggingface.co/learn/mcp-course/unit2/continue-client)
+
 [11] [https://dev.to](https://dev.to/liukonen/unleashing-the-power-of-developer-ai-a-journey-into-hosting-a-private-llmcode-assistant-locally-4kma)
+
 [12] [https://discuss.linuxcontainers.org](https://discuss.linuxcontainers.org/t/llama-cpp-and-ollama-servers-plugins-for-vs-code-vs-codium-and-intellij-ai/19744)
+
 [13] [https://nimbalyst.com](https://nimbalyst.com/blog/best-local-first-ai-coding-tools-2026/)
+
 [14] [https://www.vmware.com](https://www.vmware.com/docs/codeium-vcf-solution-brief)
+
 [15] [https://www.devart.com](https://www.devart.com/dbforge/best-ai-coding-assistant-tools.html)
+
 [16] [https://www.scrumlaunch.com](https://www.scrumlaunch.com/blog/best-ai-powered-ides-and-coding-assistants-2025)
+
 [17] [https://www.sitepoint.com](https://www.sitepoint.com/local-ai-coding-assistant-vscode-ollama-continue/)
+
 [18] [https://multishoring.com](https://multishoring.com/blog/microsoft-build-2025-session-schedule-whos-speaking-and-what-to-attend/)
+
 [19] [https://ithy.com](https://ithy.com/article/best-llms-for-coding-y58dkg3f)
+
 [20] [https://pureai.com](https://pureai.com/articles/2025/09/02/pros-and-cons-of-running-a-large-language-model-locally.aspx)
+
 [21] [https://forum.dcs.world](https://forum.dcs.world/topic/379791-hybrid-voice-interaction-local-stttts-with-llm-integration/)
+
 [22] [https://dev.to](https://dev.to/nilebits/15-most-powerful-ai-tools-every-developer-should-be-using-in-2025-2075)
+
 [23] [https://medium.com](https://medium.com/@justinmilner/the-top-coding-assistant-platforms-of-july-2024-a862e84c1b34)
+
 [24] [https://www.jrebel.com](https://www.jrebel.com/blog/vs-code-extension-for-jrebel)
+
 [25] [https://discuss.linuxcontainers.org](https://discuss.linuxcontainers.org/t/llama-cpp-and-ollama-servers-plugins-for-vs-code-vs-codium-and-intellij-ai/19744)
+
 [26] [https://medium.com](https://medium.com/@roanmonteiro/the-complete-beginners-guide-to-local-ai-concepts-models-hardware-and-a-working-pipeline-for-4a4b3de7b004)
+
 [27] [https://chriskirby.net](https://chriskirby.net/run-a-free-ai-coding-assistant-locally-with-vs-code/)
+
 [28] [https://www.sitepoint.com](https://www.sitepoint.com/run-local-llms-2026-complete-developer-guide/)
+
 [29] [https://medium.com](https://medium.com/@muthu.venkataraman/getting-started-with-foundry-local-on-windows-a-surprisingly-powerful-local-ai-experience-339f5f079532)
+
 [30] [https://failingfast.io](https://failingfast.io/local-coding-ai-models/)
+
 [31] [https://www.xda-developers.com](https://www.xda-developers.com/local-ai-replaces-chatgpt-for-coding/)
+
 [32] [https://keploy.io](https://keploy.io/blog/community/best-opensource-coding-ai)
+
+## How to integrate llama.cpp with VS code
+
+To integrate llama.cpp with Visual Studio Code, you must run llama.cpp as a local background server. The server creates an OpenAI-compatible API that a VS Code extension can communicate with. [1, 2] 
+Here is the step-by-step guide to setting up the server and connecting it to VS Code.
+## Step 1: Start the llama.cpp Server
+You must launch the llama.cpp server binary (llama-server) and point it to your downloaded GGUF model file. [3, 4, 5, 6] 
+Run the following command in your terminal:
+
+./llama-server -m /path/to/your/model-qwen2.5-coder.gguf -c 4096 --port 8080
+
+
+* -m: The absolute path to your GGUF model.
+* -c: Sets the context window size (e.g., 4096 tokens).
+* --port: The local port where the API will live (default is usually 8080). [7, 8, 9, 10] 
+
+Keep this terminal window open so the server stays active.
+
+## Step 2: Install the VS Code Extension
+
+The most robust extension to connect to a raw llama.cpp backend is Continue.dev.
+
+   1. Open VS Code.
+   2. Click the Extensions icon on the left sidebar (or press Ctrl+Shift+X / Cmd+Shift+X).
+   3. Search for Continue.
+   4. Click Install. [11, 12, 13, 14, 15] 
+
+## Step 3: Configure Continue to use llama.cpp
+
+Once installed, a Continue icon (a small square logo) will appear on your left sidebar. You need to tell it to look at your llama.cpp server instead of a cloud service. [16, 17] 
+
+   1. Click the Continue icon on the sidebar.
+   2. Click the gear icon (⚙️) at the bottom right of the Continue panel to open your config.json file.
+   3. Replace or update the models array in your configuration to match this structure: [18, 19, 20] 
+
+{
+  "models": [
+    {
+      "title": "Llama.cpp Code Model",
+      "provider": "llama.cpp",
+      "model": "qwen2.5-coder",
+      "apiBase": "http://localhost:8080"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Llama.cpp Autocomplete",
+    "provider": "llama.cpp",
+    "model": "deepseek-coder",
+    "apiBase": "http://localhost:8080"
+  }
+}
+
+Note: If you only run one model on your llama.cpp server, point both the main chat and tabAutocompleteModel to the same port. For simultaneous chat and autocomplete, you would need to run two instances of llama.cpp on different ports (e.g., 8080 and 8081) with separate models loaded. [21, 22] 
+## Step 4: Test the Integration
+
+   1. Save the config.json file.
+   2. Select your newly added model from the dropdown menu at the bottom of the Continue sidebar.
+   3. Type a prompt in the chat box (e.g., "Write a Python function to sort a list") and press Enter.
+   4. Open a code file and start typing to verify that gray inline tab-completions appear automatically. [23, 24, 25, 26, 27] 
+
+------------------------------
+To ensure your llama.cpp server runs optimally within your editor, please consider these configurations.
+
+* Would you like instructions on how to enable GPU offloading flags (-ngl / --n-gpu-layers) to speed up generation?
+* Do you want to set up an automated script to launch the llama.cpp server whenever you open VS Code?
+* Are you experiencing any latency or slow response times with the current token generation?
+
+
+[1] [https://www.linkedin.com](https://www.linkedin.com/pulse/unleash-power-local-llms-guide-setting-up-llamacpp-vishnu-n-c-pasvc)
+
+[2] [https://open-vsx.org](https://open-vsx.org/extension/krevas/local-model-provider)
+
+[3] [https://rocm.docs.amd.com](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.1.1/docs/advanced/advancedryz/linux/llm/llamacpp.html)
+
+[4] [https://github.com](https://github.com/alexziskind1/llama-throughput-lab/blob/main/README.md)
+
+[5] [https://openclawlaunch.com](https://openclawlaunch.com/guides/openclaw-llamacpp)
+
+[6] [https://docs.keephq.dev](https://docs.keephq.dev/providers/documentation/llamacpp-provider)
+
+[7] [https://qwen.readthedocs.io](https://qwen.readthedocs.io/en/latest/run_locally/llama.cpp.html)
+
+[8] [https://www.linkedin.com](https://www.linkedin.com/pulse/local-llm-inference-llamacpp-mac-metal-4-corvus-lee-z72ze)
+
+[9] [https://github.com](https://github.com/ggml-org/llama.cpp/blob/master/tools/completion/README.md)
+
+[10] [https://github.com](https://github.com/kurnevsky/llama-cpp.el)
+
+[11] [https://www.sinelogix.com](https://www.sinelogix.com/install-laravel-for-vs-code/)
+
+[12] [https://www.hyperstack.cloud](https://www.hyperstack.cloud/technical-resources/tutorials/how-to-integrate-hyperstack-ai-studio-with-kilo-code-in-vs-code)
+
+[13] [https://www.parallels.com](https://www.parallels.com/static/pl/fileadmin/res/doc/pdb/whitepaper/pd-visual-studio-code-ebook.pdf)
+
+[14] [https://www.formosa1544.com](https://www.formosa1544.com/2019/09/04/setting-up-python-development-environments-with-visual-studio-code/)
+
+[15] [https://marketplace.visualstudio.com](https://marketplace.visualstudio.com/items?itemName=iuyoy.highlight-string-code)
+
+[16] [https://levelup.gitconnected.com](https://levelup.gitconnected.com/mistrals-codestral-create-a-local-ai-coding-assistant-for-vscode-bd730ce5336d)
+
+[17] [https://github.com](https://github.com/intel/ipex-llm/blob/main/docs/mddocs/Quickstart/continue_quickstart.md)
+
+[18] [https://www.sitepoint.com](https://www.sitepoint.com/local-ai-coding-assistant-vscode-ollama-continue/)
+
+[19] [https://github.com](https://github.com/intel/ipex-llm/blob/main/docs/mddocs/Quickstart/continue_quickstart.md)
+
+[20] [https://github.com](https://github.com/mariochavez/llm_server)
+
+[21] [https://github.com](https://github.com/open-webui/open-webui/discussions/7543)
+
+[22] [https://github.com](https://github.com/kurnevsky/llama-cpp.el)
+
+[23] [https://www.exxactcorp.com](https://www.exxactcorp.com/blog/deep-learning/run-llms-locally-with-continue-vs-code-extension)
+
+[24] [https://dev.to](https://dev.to/manikandan/how-to-use-ai-models-locally-in-vs-code-with-the-continue-plugin-with-multi-model-switching-3na0)
+
+[25] [https://github.com](https://github.com/enesbasbug/deepseek-vscode-extension)
+
+[26] [https://marketplace.visualstudio.com](https://marketplace.visualstudio.com/items?itemName=Kyle-Grubbs.integrated-ai)
+
+[27] [https://github.com](https://github.com/vvhg1/llama-goose)
+
 [33] [https://juliangoldie.com](https://juliangoldie.com/ollama-claude-code-integration/)
+
 [34] [https://www.linkedin.com](https://www.linkedin.com/pulse/self-hosting-ai-coding-assistant-using-continuedev-purihin-enriquez-8vy9c)
