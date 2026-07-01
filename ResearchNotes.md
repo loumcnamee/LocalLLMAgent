@@ -1,7 +1,106 @@
 # Notes from Manual Research
 
-## Q: What are the options to host local LLMs?
+## Q: List options to host LLMs locally. For each option identify OS, model types supported, dependencies. Also for each option rate performance, scalability, IDE integration, license and security.
 
+The four best options to host LLMs locally for software development are detailed below. Each tool acts as a local server that connects to your IDE. [1] 
+
+## 1. Ollama
+The most popular tool for running local LLMs due to its simplicity, speed, and active ecosystem. [2, 3, 4, 5] 
+
+* OS: macOS, Linux, Windows.
+* Model Types Supported: GGUF.
+* Dependencies: No external dependencies. Self-contained executable.
+* Performance: Excellent. Uses llama.cpp backend with automated GPU acceleration (NVIDIA, AMD, Apple Silicon).
+* Scalability: Moderate. Handles multiple model loads but lacks advanced enterprise cluster orchestration.
+* IDE Integration: Excellent. Native support in Continue, Twinny, and Llama Coder.
+* License: MIT License (Open Source).
+* Security: High. Runs completely offline by default. No telemetry unless opted in. [6, 7, 8, 9, 10] 
+
+## 2. LM Studio
+A user-friendly desktop application featuring a clean graphical interface and a built-in Hugging Face model explorer. [11, 12, 13, 14] 
+
+* OS: macOS, Windows, Linux.
+* Model Types Supported: GGUF, MLX (on Apple Silicon).
+* Dependencies: Requires a desktop GUI environment.
+* Performance: Excellent. Highly optimized hardware configuration toggles for CPU/GPU offloading.
+* Scalability: Low. Designed primarily as a single-user desktop application.
+* IDE Integration: Excellent. Exposes an OpenAI-compatible API endpoint (/v1/chat/completions) for any IDE extension.
+* License: Free for personal use. Requires a paid subscription for commercial/enterprise use.
+* Security: High. Local-first architecture. It does not network your prompt data to external servers. [15, 16, 17, 18, 19] 
+
+## 3. vLLM
+A high-throughput, industrial-grade LLM serving engine built for speed and heavy concurrent workloads. [20, 21, 22, 23] 
+
+* OS: Linux (Windows supported via WSL).
+* Model Types Supported: AWQ, GPTQ, SqueezeLLM, unquantized FP16/BF16.
+* Dependencies: Python, PyTorch, CUDA (NVIDIA GPU required for optimal performance).
+* Performance: Industry-Best. Uses PagedAttention to maximize throughput and minimize VRAM waste.
+* Scalability: Very High. Built for multi-GPU setups, distributed serving, and high-concurrency enterprise workloads.
+* IDE Integration: Good. Provides an OpenAI-compatible API server that works easily with VS Code extensions.
+* License: Apache 2.0 License (Open Source).
+* Security: High. Fully self-hosted, though security depends on how you secure your local network ports. [24, 25, 26, 27, 28] 
+
+## 4. Llama.cpp
+The foundational, raw C/C++ engine that powers most local LLM tools (including Ollama and LM Studio). [29, 30, 31, 32, 33] 
+
+* OS: macOS, Linux, Windows, FreeBSD.
+* Model Types Supported: GGUF.
+* Dependencies: C/C++ compiler (make, cmake).
+* Performance: Great. Highly optimized for CPU inference and tailored for Apple Silicon (Metal).
+* Scalability: Moderate. Supports basic concurrent requests but requires manual configuration.
+* IDE Integration: Moderate. Requires launching the built-in server binary to expose an API endpoint.
+* License: MIT License (Open Source).
+* Security: High. Minimalist, transparent codebase with no tracking or external data leakage. [34, 35, 36, 37, 38] 
+
+------------------------------
+To help find the right backend for your workflow, please consider the following next steps.
+
+* Do you plan to host this on a single developer machine or deploy it on a shared local team server?
+* Are you looking for a tool with a graphical user interface or a headless command-line/API tool?
+* Do you have an NVIDIA GPU, Apple Silicon (M-series) chip, or a CPU-only system? [39, 40, 41] 
+
+
+[1] [https://blog.dailydoseofds.com](https://blog.dailydoseofds.com/p/4-ways-to-run-llms-locally)
+[2] [https://www.cognativ.com](https://www.cognativ.com/blogs/post/local-llm-for-python-coding-top-picks-and-insights/261)
+[3] [https://community.sap.com](https://community.sap.com/t5/artificial-intelligence-blogs-posts/bring-open-source-llms-into-sap-ai-core/ba-p/13655167)
+[4] [https://medium.com](https://medium.com/@jaegercode/openai-returns-to-open-source-complete-guide-to-gpt-oss-local-deployment-d912a28298db)
+[5] [https://jomasego.medium.com](https://jomasego.medium.com/using-the-new-chatgpt-agent-or-building-your-own-dbaf7122e388)
+[6] [https://www.pugetsystems.com](https://www.pugetsystems.com/labs/articles/tech-primer-what-hardware-do-you-need-to-run-a-local-llm/)
+[7] [https://www.linkedin.com](https://www.linkedin.com/pulse/build-your-local-ai-coding-agent-cloud-needed-louis-fran%C3%A7ois-bouchard-yluce)
+[8] [https://support.plmgroup.eu](https://support.plmgroup.eu/hc/da/articles/4805393228957-SOLIDWORKS-and-Mac)
+[9] [https://ai.plainenglish.io](https://ai.plainenglish.io/andrej-karpathy-software-1-0-software-2-0-and-software-3-0-where-ai-is-heading-7ebc4ac582be)
+[10] [https://www.openxcell.com](https://www.openxcell.com/blog/llama-cpp-vs-ollama/)
+[11] [https://www.sitepoint.com](https://www.sitepoint.com/local-llms-complete-guide/)
+[12] [https://www.binadox.com](https://www.binadox.com/blog/best-local-llms-for-cost-effective-ai-development-in-2025/)
+[13] [https://todatabeyond.substack.com](https://todatabeyond.substack.com/p/5-tools-to-run-large-language-models)
+[14] [https://www.codiste.com](https://www.codiste.com/lm-studio-vs-ollama)
+[15] [https://medium.com](https://medium.com/@bonnyjames0830/a-comprehensive-guide-to-using-local-llms-offline-3bf63f6a400d)
+[16] [https://verpex.com](https://verpex.com/blog/operating-systems-common-in-cloud-data-centers)
+[17] [https://mokkappsdev.medium.com](https://mokkappsdev.medium.com/boost-your-productivity-by-using-the-terminal-iterm-zsh-1af800d2d0c6)
+[18] [https://support.plmgroup.eu](https://support.plmgroup.eu/hc/da/articles/4805393228957-SOLIDWORKS-and-Mac)
+[19] [https://arpitkulsh.medium.com](https://arpitkulsh.medium.com/lm-studio-the-desktop-ai-lab-that-brings-powerful-llms-to-your-own-machine-687b40ca69e4)
+[20] [https://www.linkedin.com](https://www.linkedin.com/pulse/qwen3-self-hosting-guide-vllm-sglang-maksym-huczynski-i4v2f)
+[21] [https://medium.com](https://medium.com/@eliran89c/how-to-deploy-a-self-hosted-llm-on-eks-and-why-you-should-e9184e366e0a)
+[22] [https://medium.com](https://medium.com/@palash-fin/mastering-vllm-on-aks-deployment-monitoring-troubleshooting-guide-36893e01f2b6)
+[23] [https://medium.com](https://medium.com/@nimritakoul01/llm-inference-providers-7b374695a0a0)
+[24] [https://www.pugetsystems.com](https://www.pugetsystems.com/labs/articles/tech-primer-what-hardware-do-you-need-to-run-a-local-llm/)
+[25] [https://docs.agentops.ai](https://docs.agentops.ai/v2/self-hosting/overview)
+[26] [https://codingnomads.com](https://codingnomads.com/hardware-and-operating-system-setup-for-python-101)
+[27] [https://www.spheron.network](https://www.spheron.network/blog/modular-max-mojo-gpu-cloud-llm-inference/)
+[28] [https://www.sitepoint.com](https://www.sitepoint.com/ollama-vs-vllm-scaling-local-ai-stack/)
+[29] [https://pinggy.io](https://pinggy.io/blog/top_5_local_llm_tools_and_models/)
+[30] [https://www.datacamp.com](https://www.datacamp.com/tutorial/run-llms-locally-tutorial)
+[31] [https://todatabeyond.substack.com](https://todatabeyond.substack.com/p/5-tools-to-run-large-language-models)
+[32] [https://semaphore.io](https://semaphore.io/blog/local-llm)
+[33] [https://apxml.com](https://apxml.com/courses/getting-started-local-llms/chapter-4-running-first-local-llm/intro-local-llm-runners)
+[34] [https://www.pugetsystems.com](https://www.pugetsystems.com/labs/articles/tech-primer-what-hardware-do-you-need-to-run-a-local-llm/)
+[35] [https://medium.com](https://medium.com/data-science-collective/how-to-run-an-open-source-llm-on-your-personal-computer-bc6cca454282)
+[36] [https://www.deepin.org](https://www.deepin.org/en/llamafile-a-must-have-tool/)
+[37] [https://github.com](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/guides/local-llm-on-mac.md)
+[38] [https://levelup.gitconnected.com](https://levelup.gitconnected.com/i-tried-20-open-source-llms-these-5-perform-remarkably-well-on-cpus-769a57bb98bd)
+[39] [https://docs.tabulareditor.com](https://docs.tabulareditor.com/en/features/ai-assistant.html)
+[40] [https://llm.mlc.ai](https://llm.mlc.ai/docs/get_started/introduction)
+[41] [https://www.xda-developers.com](https://www.xda-developers.com/rtx-5090-cant-keep-up-apple-silicon-biggest-local-llms/)
 
 
 ## What are the options to integrate the VS Code and Visual Studio IDEs with locally hosted LLMs?
